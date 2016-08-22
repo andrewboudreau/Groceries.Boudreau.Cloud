@@ -10,6 +10,7 @@ namespace Groceries.Boudreau.Cloud.Controllers
     {
         public IActionResult Index()
         {
+            ViewData["Message"] = "Groceries.Boudreau.Cloud";
             return View();
         }
 

@@ -10,7 +10,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Groceries.Boudreau.Cloud", "src\Groceries.Boudreau.Cloud\Groceries.Boudreau.Cloud.xproj", "{968B0514-6FEE-41F5-B47B-2396090D051C}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Groceries.Boudreau.Cloud.WebApp", "src\Groceries.Boudreau.Cloud.WebApp\Groceries.Boudreau.Cloud.WebApp.xproj", "{968B0514-6FEE-41F5-B47B-2396090D051C}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Groceries.Boudreau.Cloud.Unit", "test\Groceries.Boudreau.Cloud.Unit\Groceries.Boudreau.Cloud.Unit.xproj", "{EF42C54E-D98E-41EA-BFE7-6CC2422A595E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{50DA13AE-2D38-4EA0-8C3E-5654B632B5F0}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Groceries.Boudreau.Cloud.Integration", "test\Groceries.Boudreau.Cloud.Integration\Groceries.Boudreau.Cloud.Integration.xproj", "{0EFF3A36-018F-402A-B002-67C58AE975D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,11 +28,21 @@ Global
 		{968B0514-6FEE-41F5-B47B-2396090D051C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{968B0514-6FEE-41F5-B47B-2396090D051C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{968B0514-6FEE-41F5-B47B-2396090D051C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF42C54E-D98E-41EA-BFE7-6CC2422A595E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF42C54E-D98E-41EA-BFE7-6CC2422A595E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF42C54E-D98E-41EA-BFE7-6CC2422A595E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF42C54E-D98E-41EA-BFE7-6CC2422A595E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EFF3A36-018F-402A-B002-67C58AE975D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EFF3A36-018F-402A-B002-67C58AE975D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EFF3A36-018F-402A-B002-67C58AE975D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EFF3A36-018F-402A-B002-67C58AE975D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{968B0514-6FEE-41F5-B47B-2396090D051C} = {8050761D-1304-47B9-B908-26E1AD8F2028}
+		{EF42C54E-D98E-41EA-BFE7-6CC2422A595E} = {50DA13AE-2D38-4EA0-8C3E-5654B632B5F0}
+		{0EFF3A36-018F-402A-B002-67C58AE975D4} = {50DA13AE-2D38-4EA0-8C3E-5654B632B5F0}
 	EndGlobalSection
 EndGlobal
