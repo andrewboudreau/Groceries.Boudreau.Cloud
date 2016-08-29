@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +8,11 @@ namespace Groceries.Boudreau.Cloud
 {
     public class Startup
     {
+        public Startup()
+        {
+            System.Diagnostics.Debug.Write("Creating StartUp");
+        }
+
         public IConfigurationRoot Configuration { get; }
 
         public Startup(IHostingEnvironment env)
@@ -19,13 +20,13 @@ namespace Groceries.Boudreau.Cloud
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                //.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
 
             if (env.IsDevelopment())
             {
                 // This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
-                builder.AddApplicationInsightsSettings(developerMode: true);
+                //builder.AddApplicationInsightsSettings(developerMode: true);
             }
 
             Configuration = builder.Build();
@@ -35,7 +36,7 @@ namespace Groceries.Boudreau.Cloud
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddApplicationInsightsTelemetry(Configuration);
+            //services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddMvc();
         }
@@ -43,10 +44,10 @@ namespace Groceries.Boudreau.Cloud
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseApplicationInsightsRequestTelemetry();
+            //app.UseApplicationInsightsRequestTelemetry();
 
             if (env.IsDevelopment())
             {
@@ -58,7 +59,7 @@ namespace Groceries.Boudreau.Cloud
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseApplicationInsightsExceptionTelemetry();
+            //app.UseApplicationInsightsExceptionTelemetry();
 
             app.UseStaticFiles();
 
