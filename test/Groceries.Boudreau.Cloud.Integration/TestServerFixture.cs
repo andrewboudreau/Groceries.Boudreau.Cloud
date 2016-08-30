@@ -34,8 +34,15 @@
 
         public void Dispose()
         {
-            Client.Dispose();
-            TestServer.Dispose();
+            if (Client != null)
+            {
+                Client.Dispose();
+            }
+            
+            if(TestServer != null)
+            {
+                TestServer.Dispose();
+            }
         }
     }
 }
