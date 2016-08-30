@@ -1,4 +1,7 @@
 ﻿{
+  "version": "1.0.0",
+  "description": "Shared shopping list management",
+  "title": "Groceries.Boudreau.Cloud",
   "dependencies": {
     "Microsoft.NETCore.App": {
       "version": "1.0.0",
