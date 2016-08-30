@@ -34,8 +34,8 @@
 
         public void Dispose()
         {
-            TestServer.Dispose();
             Client.Dispose();
+            TestServer.Dispose();
         }
     }
 }
