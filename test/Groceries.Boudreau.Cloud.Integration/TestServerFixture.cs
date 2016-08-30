@@ -2,10 +2,10 @@
 {
     using System;
     using System.Net.Http;
+    using System.IO;
 
     using Microsoft.AspNetCore.TestHost;
     using Microsoft.AspNetCore.Hosting;
-    using System.IO;
     using Microsoft.Extensions.PlatformAbstractions;
 
     /// <summary>
@@ -22,12 +22,13 @@
 
         public TestServerFixture()
         {
-            var host = new WebHostBuilder()
-                .UseEnvironment("Development")
-                .UseContentRoot(Path.GetFullPath(Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "..", "..", "src", "Groceries.Boudreau.Cloud.WebApp")))
-                .UseStartup<Groceries.Boudreau.Cloud.Startup>();
+            var webAppContentRoot = Path.GetFullPath(Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "..", "..", "..", "..", "..", "src", "Groceries.Boudreau.Cloud.WebApp"));
 
-            TestServer = new TestServer(host);
+            var TestServer = new TestServer(new WebHostBuilder()
+                .UseEnvironment("Development")
+                .UseContentRoot(webAppContentRoot)
+                .UseStartup<Groceries.Boudreau.Cloud.Startup>());
+            
             Client = TestServer.CreateClient();
         }
 
