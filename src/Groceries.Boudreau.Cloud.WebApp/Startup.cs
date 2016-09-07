@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Groceries.Boudreau.Cloud.Database;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -37,6 +39,10 @@ namespace Groceries.Boudreau.Cloud
         {
             // Add framework services.
             //services.AddApplicationInsightsTelemetry(Configuration);
+
+            var connectionString = "Server=(localdb)\\mssqllocaldb;Database=GroceriesBoudreauCloud;Trusted_Connection=True;MultipleActiveResultSets=true";
+
+            services.AddDbContext<ShoppingListContext>(opt => opt.UseSqlServer(connectionString));
 
             services.AddMvc();
         }

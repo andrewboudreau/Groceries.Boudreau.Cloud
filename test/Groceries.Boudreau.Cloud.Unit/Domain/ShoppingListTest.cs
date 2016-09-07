@@ -13,10 +13,12 @@
             ShoppingList list = new ShoppingList();
 
             // Act
-            list.ShoppingItems.Add(new ShoppingItem());
+            list.Items.Add(new ShoppingItem());
 
             // Assert
-            Assert.Equal(1, list.ShoppingItems.Count);
+            Assert.Equal(1, list.Items.Count);
         }
+
+
     }
 }
