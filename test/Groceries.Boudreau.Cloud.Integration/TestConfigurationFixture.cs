@@ -34,6 +34,7 @@
             var dbContextOptionsBuilder = new DbContextOptionsBuilder();
             dbContextOptionsBuilder.UseSqlServer(ConnectionString);
             DbContextOptions = dbContextOptionsBuilder.Options;
+            var foo = 1;
         }
 
         public void Dispose()
