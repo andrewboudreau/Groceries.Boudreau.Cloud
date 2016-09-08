@@ -24,15 +24,14 @@ namespace Groceries.Boudreau.Cloud.Database
             base.OnModelCreating(modelBuilder);
         }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    if (!optionsBuilder.IsConfigured)
-        //    {
-        //Server=(localdb)\\mssqllocaldb;Database=GroceriesBoudreauCloud;Trusted_Connection=True;MultipleActiveResultSets=true
-        //        optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=ShoppingList;Trusted_Connection=True;");
-        //    }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                System.Diagnostics.Debug.WriteLine($"DbContext being configured on demand");
+            }
 
-        //    base.OnConfiguring(optionsBuilder);
-        //}
+            base.OnConfiguring(optionsBuilder);
+        }
     }
 }

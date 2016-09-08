@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
-using System.Net.Http;
 namespace IntegrationTests
 {
+    using System.Net.Http;
     using System.Threading.Tasks;
 
     using Xunit;
