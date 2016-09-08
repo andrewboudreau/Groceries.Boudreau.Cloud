@@ -1,6 +1,7 @@
 ﻿using Groceries.Boudreau.Cloud.Domain;
 
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Groceries.Boudreau.Cloud.Database
 {
@@ -22,16 +23,6 @@ namespace Groceries.Boudreau.Cloud.Database
                 .Ignore(x => x.CryptographicHash);
 
             base.OnModelCreating(modelBuilder);
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                System.Diagnostics.Debug.WriteLine($"DbContext being configured on demand");
-            }
-
-            base.OnConfiguring(optionsBuilder);
         }
     }
 }

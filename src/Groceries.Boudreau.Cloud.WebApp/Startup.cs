@@ -39,10 +39,7 @@ namespace Groceries.Boudreau.Cloud
         {
             // Add framework services.
             //services.AddApplicationInsightsTelemetry(Configuration);
-
-            var connectionString = "Server=(localdb)\\mssqllocaldb;Database=GroceriesBoudreauCloud;Trusted_Connection=True;MultipleActiveResultSets=true";
-
-            services.AddDbContext<ShoppingListContext>(opt => opt.UseSqlServer(connectionString));
+            services.AddDbContext<ShoppingListContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc();
         }
