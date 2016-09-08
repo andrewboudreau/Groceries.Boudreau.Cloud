@@ -17,6 +17,8 @@ namespace Groceries.Boudreau.Cloud.Integration.EntityFramework
             var optionsBuilder = new DbContextOptionsBuilder();
             optionsBuilder.UseSqlServer(Environment.GetEnvironmentVariable("DefaultConnection"));
 
+            Console.Out.WriteLine(Environment.GetEnvironmentVariable("DefaultConnection"));
+
             var context = new ShoppingListContext(optionsBuilder.Options);
 
             // Act
