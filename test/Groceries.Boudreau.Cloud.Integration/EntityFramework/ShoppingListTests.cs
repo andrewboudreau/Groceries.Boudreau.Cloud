@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-using Groceries.Boudreau.Cloud.Database;
-
 using IntegrationTests;
 
 using Xunit;

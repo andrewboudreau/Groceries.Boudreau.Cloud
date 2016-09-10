@@ -37,7 +37,10 @@
 
             using(var context = new ShoppingListContext(DbContextOptions))
             {
-                context.Database.EnsureDeleted();
+                if (Configuration["SkipDeleteDatabase"] == null)
+                { 
+                    context.Database.EnsureDeleted();
+                }
                 context.Database.Migrate();
             }
         }
