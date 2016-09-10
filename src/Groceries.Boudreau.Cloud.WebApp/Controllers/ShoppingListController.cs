@@ -8,6 +8,7 @@
 
     using Groceries.Boudreau.Cloud.Domain;
     using Groceries.Boudreau.Cloud.Database;
+    using Microsoft.EntityFrameworkCore;
 
     [Route("api/[controller]")]
     public class ShoppingListController : Controller
@@ -23,7 +24,10 @@
         [HttpGet]
         public IEnumerable<ShoppingList> Get()
         {
-            var lists = shoppingListContext.ShoppingLists.ToList();
+            var lists = shoppingListContext.ShoppingLists
+                .Include(x => x.Id)
+                .ToList();
+
             return lists;
         }
 
@@ -31,7 +35,9 @@
         [HttpGet("{id}")]
         public ShoppingList Get(int id)
         {
-            return shoppingListContext.ShoppingLists.FirstOrDefault(x => x.Id == id);
+            return shoppingListContext.ShoppingLists
+                .Include(x => x.Id)
+                .FirstOrDefault(x => x.Id == id);
         }
 
         // POST api/values
