@@ -19,7 +19,11 @@ namespace Groceries.Boudreau.Cloud.Database
         {
             modelBuilder
                 .Entity<ShoppingList>()
-                .Ignore(x => x.CryptographicHash);
+                .Ignore(x => x.SHA256);
+
+            modelBuilder
+                .Entity<ShoppingItem>()
+                .Ignore(x => x.SHA256);
 
             base.OnModelCreating(modelBuilder);
         }
