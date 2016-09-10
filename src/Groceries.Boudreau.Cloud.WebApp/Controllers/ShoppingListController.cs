@@ -25,7 +25,7 @@
         public IEnumerable<ShoppingList> Get()
         {
             var lists = shoppingListContext.ShoppingLists
-                .Include(x => x.Id)
+                .Include(x => x.Items)
                 .ToList();
 
             return lists;
@@ -36,7 +36,7 @@
         public ShoppingList Get(int id)
         {
             return shoppingListContext.ShoppingLists
-                .Include(x => x.Id)
+                .Include(x => x.Items)
                 .FirstOrDefault(x => x.Id == id);
         }
 
