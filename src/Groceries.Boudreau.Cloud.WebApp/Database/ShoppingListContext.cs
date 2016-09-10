@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Groceries.Boudreau.Cloud.Database
 {
+    /// <summary>
+    /// DbContext
+    /// </summary>
     public class ShoppingListContext : DbContext
     {
         public ShoppingListContext(DbContextOptions options)
