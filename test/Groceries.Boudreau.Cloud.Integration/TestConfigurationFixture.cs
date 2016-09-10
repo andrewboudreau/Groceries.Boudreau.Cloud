@@ -1,5 +1,6 @@
 ﻿namespace IntegrationTests
 {
+    using Groceries.Boudreau.Cloud.Database;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using System;
@@ -8,7 +9,7 @@
     /// <summary>
     /// Prepares the application configuration.
     /// </summary>
-    public class TestConfigurationFixture : IDisposable
+    public class TestShoppingListContextFixture : IDisposable
     {
         public IConfigurationRoot Configuration;
 
@@ -22,23 +23,33 @@
 
         public DbContextOptions DbContextOptions { get; set; }
 
-        public TestConfigurationFixture()
+        public TestShoppingListContextFixture()
         {
-            var builder = new ConfigurationBuilder()
+            Configuration = new ConfigurationBuilder()
                .SetBasePath(Directory.GetCurrentDirectory())
                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-               .AddEnvironmentVariables();
-
-            Configuration = builder.Build();
-
+               .AddEnvironmentVariables()
+               .Build();
+            
             var dbContextOptionsBuilder = new DbContextOptionsBuilder();
             dbContextOptionsBuilder.UseSqlServer(ConnectionString);
             DbContextOptions = dbContextOptionsBuilder.Options;
+
+            using(var context = new ShoppingListContext(DbContextOptions))
+            {
+                context.Database.EnsureDeleted();
+                context.Database.Migrate();
+            }
         }
 
         public void Dispose()
         {
             // do nothing
+        }
+
+        public ShoppingListContext CreateShoppingListContext()
+        {
+            return new ShoppingListContext(DbContextOptions);
         }
     }
 }

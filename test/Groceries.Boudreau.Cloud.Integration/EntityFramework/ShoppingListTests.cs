@@ -1,19 +1,21 @@
-﻿using Groceries.Boudreau.Cloud.Database;
-using IntegrationTests;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Threading.Tasks;
+
+using Groceries.Boudreau.Cloud.Database;
+
+using IntegrationTests;
+
 using Xunit;
+using Groceries.Boudreau.Cloud.Domain;
+using System.Linq;
 
 namespace Groceries.Boudreau.Cloud.Integration.EntityFramework
 {
-    public class ShoppingListTests : IClassFixture<TestConfigurationFixture>
+    public class ShoppingListTests : IClassFixture<TestShoppingListContextFixture>
     {
-        private TestConfigurationFixture config;
+        private TestShoppingListContextFixture config;
 
-        public ShoppingListTests(TestConfigurationFixture config)
+        public ShoppingListTests(TestShoppingListContextFixture config)
         {
             this.config = config;
         }
@@ -22,11 +24,27 @@ namespace Groceries.Boudreau.Cloud.Integration.EntityFramework
         public async Task CreateShoppingListTest()
         {
             // Arrange
-            var context = new ShoppingListContext(config.DbContextOptions);
+            using (var context = config.CreateShoppingListContext())
+            {
+                // Act
+                context.ShoppingItems.Add(new Domain.ShoppingItem() { Name = Guid.NewGuid().ToString() });
+                await context.SaveChangesAsync();
+            }
+                        
+            // Assert
+            Assert.True(true);
+        }
 
-            // Act
-            context.ShoppingItems.Add(new Domain.ShoppingItem() { Name = Guid.NewGuid().ToString() });
-            await context.SaveChangesAsync();
+        [Fact]
+        public void ReadShoppingListTest()
+        {
+            // Arrange
+            using (var context = config.CreateShoppingListContext())
+            {
+                // Act
+                var items = context.Set<ShoppingList>().ToList();
+                Assert.NotNull(items);
+            }
 
             // Assert
             Assert.True(true);

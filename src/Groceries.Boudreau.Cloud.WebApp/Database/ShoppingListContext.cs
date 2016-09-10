@@ -1,7 +1,6 @@
 ﻿using Groceries.Boudreau.Cloud.Domain;
 
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace Groceries.Boudreau.Cloud.Database
 {

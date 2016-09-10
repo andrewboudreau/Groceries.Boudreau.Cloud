@@ -47,10 +47,8 @@ namespace Groceries.Boudreau.Cloud
         {
             // Add framework services.
             //services.AddApplicationInsightsTelemetry(Configuration);
-            System.IO.File.WriteAllText("_connectionstring.txt", $"Database connection {Configuration.GetConnectionString("DefaultConnection")}");
 
             services.AddDbContext<ShoppingListContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
             services.AddMvc();
         }
 
@@ -62,15 +60,22 @@ namespace Groceries.Boudreau.Cloud
 
             //app.UseApplicationInsightsRequestTelemetry();
 
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                serviceScope.ServiceProvider.GetService<ShoppingListContext>().Database.Migrate();
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
                 app.UseBrowserLink();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
 
             //app.UseApplicationInsightsExceptionTelemetry();
 
