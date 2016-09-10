@@ -10,6 +10,9 @@ using System.Linq;
 
 namespace Groceries.Boudreau.Cloud
 {
+    /// <summary>
+    /// Groceries.Boudreau.Cloud startup script.
+    /// </summary>
     public class Startup
     {
         public IConfigurationRoot Configuration { get; }
