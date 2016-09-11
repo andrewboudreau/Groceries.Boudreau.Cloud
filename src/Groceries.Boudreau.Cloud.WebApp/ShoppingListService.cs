@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using Groceries.Boudreau.Cloud.Domain;
 using Microsoft.Extensions.Logging;
+using Groceries.Boudreau.Cloud.Database;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Groceries.Boudreau.Cloud.Controllers
 {
@@ -9,10 +13,12 @@ namespace Groceries.Boudreau.Cloud.Controllers
     {
         private readonly ILogger logger;
 
-        public ShoppingListService(ILoggerFactory loggingFactory)
-        {
-            logger = loggingFactory.CreateLogger<ShoppingListService>();
+        private readonly ShoppingListContext shoppingListContext;
 
+        public ShoppingListService(ShoppingListContext shoppingListContext, ILoggerFactory loggingFactory)
+        {
+            this.shoppingListContext = shoppingListContext;
+            this.logger = loggingFactory.CreateLogger<ShoppingListService>();
         }
 
         public int AddItems(params ShoppingItem[] items)
@@ -20,10 +26,12 @@ namespace Groceries.Boudreau.Cloud.Controllers
             return 1;
         }
 
-        internal IEnumerable<ShoppingList> GetAllLists()
+        public async Task<ICollection<ShoppingList>> ShoppingListsViewModel()
         {
-            logger.LogDebug("Getting all lists");
-            return new List<ShoppingList>();
+            logger.LogDebug("Getting all shopping lists");
+
+            var lists = await shoppingListContext.ShoppingLists.ToListAsync();
+            return lists;
         }
     }
 }

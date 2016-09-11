@@ -2,12 +2,12 @@
 {
     using Microsoft.AspNetCore.Mvc;
 
-    public class HomeController : Controller
+    public class ShoppingListClientController : Controller
     {
         public IActionResult Index()
         {
             ViewData["Message"] = "Groceries.Boudreau.Cloud";
-            return View();
+            return View("../Home/Index");
         }
     }
 }
