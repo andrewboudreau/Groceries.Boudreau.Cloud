@@ -5,10 +5,10 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
 
     using Groceries.Boudreau.Cloud.Domain;
     using Groceries.Boudreau.Cloud.Database;
-    using Microsoft.EntityFrameworkCore;
 
     [Route("api/[controller]")]
     public class ShoppingListController : Controller

@@ -88,7 +88,7 @@ namespace Groceries.Boudreau.Cloud
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=ShoppingListClient}/{action=Index}/{id?}");
             });
         }
     }
