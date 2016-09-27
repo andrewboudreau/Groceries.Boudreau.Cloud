@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
-namespace IntegrationTests
+﻿namespace IntegrationTests
 {
     using System.Net.Http;
     using System.Threading.Tasks;
