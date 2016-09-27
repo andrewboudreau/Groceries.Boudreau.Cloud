@@ -63,10 +63,10 @@ namespace Groceries.Boudreau.Cloud
 
             //app.UseApplicationInsightsRequestTelemetry();
 
-            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
-            {
-                serviceScope.ServiceProvider.GetService<ShoppingListContext>().Database.Migrate();
-            }
+            //using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            //{
+            //    serviceScope.ServiceProvider.GetService<ShoppingListContext>().Database.Migrate();
+            //}
 
             if (env.IsDevelopment())
             {
