@@ -37,18 +37,20 @@
 
         // POST api/values
         [HttpPost]
-        public async Task<IActionResult> Post(int shoppingListId, [FromBody]ShoppingItem value)
+        public async Task<IActionResult> Post(int id, [FromBody]ShoppingItem value)
         {
-            var shoppingList = shoppingListContext.ShoppingLists.SingleAsync(x => x.Id == shoppingListId);
+            var shoppingList = shoppingListContext.ShoppingLists
+                .SingleAsync(x => x.Id == id);
+
             if(shoppingList == null)
             {
-                return StatusCode(404, $"ShoppingList {shoppingListId} not found.");
+                return StatusCode(404, $"ShoppingList {id} not found.");
             }
             
             shoppingListContext.ShoppingItems.Add(value);
             await shoppingListContext.SaveChangesAsync();
 
-            return Content(shoppingListId.ToString());
+            return Content(id.ToString());
         }
 
         // PUT api/values/5

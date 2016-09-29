@@ -52,7 +52,10 @@
         [HttpPut("{id}")]
         public async Task Put(int id, [FromBody]ShoppingList value)
         {
-            var list = shoppingListContext.ShoppingLists.Single(x => x.Id == id);
+            var list = await shoppingListContext.ShoppingLists
+                .Include(x => x.Items)
+                .SingleAsync(x => x.Id == id);
+
             list.Name = value.Name;
             list.Items = value?.Items ?? list.Items;
 
@@ -63,7 +66,16 @@
         [HttpDelete("{id}")]
         public async Task Delete(int id)
         {
-            shoppingListContext.Remove(new ShoppingList() { Id = id });
+            var shoppinglist = await shoppingListContext.ShoppingLists
+                .Include(x=>x.Items)
+                .SingleOrDefaultAsync(x => x.Id == id);
+
+            if(shoppinglist == null)
+            {
+                return;
+            }
+
+            shoppingListContext.Remove(shoppinglist);
             await shoppingListContext.SaveChangesAsync();
         }
     }
