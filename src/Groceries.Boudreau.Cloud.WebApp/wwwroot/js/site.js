@@ -50,16 +50,15 @@ groceries = {
     }
 }
 
+
 var list = new groceries.models.ShoppingList();
 list.items.push(new groceries.models.ShoppingItem());
 list.items[0].name = "item1234";
 list.name = "list1234";
 
-var done = function () {
-
-    groceries.api.shoppinglist.get().done(function () { console.log(arguments[0]); });
+var ids;
+var readAllIds = function () {
+    groceries.api.shoppinglist.get().done(function () {  ids = arguments[0] });
 }
 
-groceries.api.shoppinglist.post(list).done(done);
-
-
+groceries.api.shoppinglist.post(list).done(readAllIds);
