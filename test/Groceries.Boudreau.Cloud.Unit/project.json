@@ -7,16 +7,16 @@
     "System.Runtime.Serialization.Primitives": "4.1.1",
     "dotnet-test-xunit": "2.2.0-preview2-build1029",
     "xunit": "2.2.0-beta2-build3300",
-    "Groceries.Boudreau.Cloud.WebApp": "1.0.0-*"
+    "Groceries.Boudreau.Cloud.WebApp": "1.0.0-*",
+    "Microsoft.NETCore.App": {
+      "type": "platform",
+      "version": "1.0.1"
+    }
   },
   "testRunner": "xunit",
   "frameworks": {
     "netcoreapp1.0": {
       "dependencies": {
-        "Microsoft.NETCore.App": {
-          "type": "platform",
-          "version": "1.0.0"
-        }
       },
       "imports": [
         "dotnet5.4",
