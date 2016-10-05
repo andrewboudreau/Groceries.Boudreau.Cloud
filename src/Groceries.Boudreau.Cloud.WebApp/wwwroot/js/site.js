@@ -49,16 +49,3 @@ groceries = {
         }
     }
 }
-
-
-var list = new groceries.models.ShoppingList();
-list.items.push(new groceries.models.ShoppingItem());
-list.items[0].name = "item1234";
-list.name = "list1234";
-
-var ids;
-var readAllIds = function () {
-    groceries.api.shoppinglist.get().done(function () {  ids = arguments[0] });
-}
-
-groceries.api.shoppinglist.post(list).done(readAllIds);
