@@ -16,16 +16,16 @@
     "Microsoft.EntityFrameworkCore.Design": {
       "type": "build",
       "version": "1.0.0-preview2-final"
+    },
+    "Microsoft.NETCore.App": {
+      "type": "platform",
+      "version": "1.0.1"
     }
   },
   "testRunner": "xunit",
   "frameworks": {
     "netcoreapp1.0": {
       "dependencies": {
-        "Microsoft.NETCore.App": {
-          "type": "platform",
-          "version": "1.0.0"
-        }
       },
       "imports": [
         "dotnet5.4",
