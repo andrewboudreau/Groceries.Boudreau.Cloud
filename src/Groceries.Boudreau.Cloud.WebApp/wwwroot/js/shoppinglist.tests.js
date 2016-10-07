@@ -1,7 +1,11 @@
 ﻿var logger = {};
 logger.log = function (msg) {
     console.log(msg);
-    $("#TestOutput").append("<p>" + msg);
+    if (typeof msg === "object") {
+        $("<pre>").append(JSON.stringify(msg, null, 2)).appendTo($("#TestOutput"));
+    } else {
+        $("#TestOutput").append(msg);
+    }
 }
 
 
@@ -19,6 +23,7 @@ var deleteAllLists = function () {
                $.when.apply($, deleteCalls).done(x => { logger.log("all delete calls done"); d.resolve(); });
            } else {
                logger.log("No lists found when deleting all lists")
+               d.resolve();
            }
        })
     .fail(x => d.reject());
@@ -60,6 +65,7 @@ var readSingleList = function () {
                     .fail(x => d.reject());
             } else {
                 logger.log("No lists found when trying to read a single list.");
+                d.resolve();
             }
         })
         .fail(x => d.reject());
@@ -68,23 +74,24 @@ var readSingleList = function () {
 }
 
 var createNewList = function () {
+    logger.log("creating new list");
     var list = new groceries.models.ShoppingList();
     list.items.push(new groceries.models.ShoppingItem());
     list.items[0].name = "item1234";
     list.name = "list1234";
 
-    return groceries.api.shoppinglist.post(list).done(x => logger.log("New list created."));
+    return groceries.api.shoppinglist.post(list);
 }
 
 logger.log("Testing Started");
 
-deleteAllLists()
-    .done(x => logger.log("delete all done"))
-    .done(x =>
-        readSingleList()
-            .done(x => logger.log("reading single list done"))
-            .done(x => createNewList()
-                .done(x => logger.log("created list"))));
+//deleteAllLists()
+//    .done(x => logger.log("delete all done"))
+//    .done(x =>
+//        readSingleList()
+//            .done(x => logger.log("reading single list done"))
+//            .done(x => createNewList()
+//                .done(x => logger.log("created list"))));
 
 var createFive = function () {
     createNewList();
@@ -94,11 +101,13 @@ var createFive = function () {
     createNewList();
 }
 
-//readAllLists()
-//    .then(readSingleList)
-//    .then(deleteAllLists)
-//    .then(createNewList)
-//    .then(createNewList)
-//    .then(readAllLists)
-//    .then(readSingleList)
-//    .then(deleteAllLists);
+var runTests = function () {
+    readAllLists()
+        .then(readSingleList()
+        .then(deleteAllLists()
+        .then(createNewList()
+        .then(createNewList()
+        .then(readAllLists()
+        .then(readSingleList()
+        .then(deleteAllLists())))))));
+}

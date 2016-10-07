@@ -1,4 +1,8 @@
 ﻿// Write your Javascript code.
+var print = function (data) {
+    logger.log(data);
+};
+
 groceries = {
     models: {
         ShoppingList: function () {
@@ -25,25 +29,42 @@ groceries = {
                 }
                 return $.get("/api/shoppinglist/");
             },
-            post: function (shoppinglist, done, fail) {
+            post: function (shoppinglist) {
                 return $.ajax("/api/shoppinglist", {
                     method: "POST",
                     contentType: 'application/json; charset=UTF-8',
-                    dataType: "json",
                     data: JSON.stringify(shoppinglist)
                 });
             },
-            put: function (shoppinglist, done, fail) {
+            put: function (shoppinglist) {
                 return $.ajax("/api/shoppinglist", {
                     method: "PUT",
                     contentType: 'application/json; charset=UTF-8',
-                    dataType: "json",
                     data: JSON.stringify({ id: shoppinglist.id, shoppinglist })
                 });
             },
             delete: function (id) {
                 return $.ajax("/api/shoppinglist/" + id, {
                     method: "DELETE"
+                });
+            },
+            addItem: function (id, item) {
+                return $.ajax(`/api/shoppinglistitem/${id}`, {
+                    method: "POST",
+                    contentType: 'application/json; charset=UTF-8',
+                    data: JSON.stringify({ id: shoppinglist.id, value: item })
+                });
+            },
+            removeItem: function (itemId) {
+                return $.ajax(`/api/shoppinglistitem/${id}`, {
+                    method: "DELETE"
+                });
+            },
+            updateItem: function (item) {
+                return $.ajax("/api/shoppinglistitem/" + item.id, {
+                    method: "PUT",
+                    contentType: 'application/json; charset=UTF-8',
+                    data: JSON.stringify({ id: item.id, item })
                 });
             }
         }
