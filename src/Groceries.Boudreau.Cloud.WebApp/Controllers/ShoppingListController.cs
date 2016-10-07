@@ -42,10 +42,12 @@
 
         // POST api/values
         [HttpPost]
-        public async Task Post([FromBody]ShoppingList value)
+        public async Task<int> Post([FromBody]ShoppingList value)
         {
             shoppingListContext.ShoppingLists.Add(value);
             await shoppingListContext.SaveChangesAsync();
+
+            return value.Id;
         }
 
         // PUT api/values/5

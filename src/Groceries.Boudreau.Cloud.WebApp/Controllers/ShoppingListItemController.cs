@@ -36,7 +36,7 @@
         }
 
         // POST api/values
-        [HttpPost]
+        [HttpPost("{id}")]
         public async Task<IActionResult> Post(int id, [FromBody]ShoppingItem value)
         {
             var shoppingList = shoppingListContext.ShoppingLists

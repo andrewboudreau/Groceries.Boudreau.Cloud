@@ -52,7 +52,7 @@ groceries = {
                 return $.ajax(`/api/shoppinglistitem/${id}`, {
                     method: "POST",
                     contentType: 'application/json; charset=UTF-8',
-                    data: JSON.stringify({ id: shoppinglist.id, value: item })
+                    data: JSON.stringify({ id: id, value: item })
                 });
             },
             removeItem: function (itemId) {
