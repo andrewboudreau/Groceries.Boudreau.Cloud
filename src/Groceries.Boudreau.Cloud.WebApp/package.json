@@ -7,7 +7,7 @@
     "postinstall": "typings install && gulp restore",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
-    "typings": "typings"
+    "typings": "wwwroot/typings"
   },
   "license": "ISC",
   "dependencies": {
