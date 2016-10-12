@@ -1,0 +1,5 @@
+﻿#remove packages
+libs/
+lib/
+css/*.min.css
+js/*.min.js

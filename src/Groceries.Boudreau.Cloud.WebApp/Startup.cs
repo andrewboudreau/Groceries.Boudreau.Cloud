@@ -6,8 +6,16 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using System.IO;
 using System.Linq;
 
+/// <summary>
+/// https://github.com/andrewboudreau/Groceries.Boudreau.Cloud
+/// 
+/// http://www.centare.com/tutorial-angular2-mvc-6-asp-net-5/
+/// http://asp.net-hacker.rocks/2016/08/08/setup-angular2-typescript-aspnetcore-in-visualstudio.html
+/// 
+/// </summary>
 namespace Groceries.Boudreau.Cloud
 {
     /// <summary>
@@ -81,15 +89,20 @@ namespace Groceries.Boudreau.Cloud
 
 
             //app.UseApplicationInsightsExceptionTelemetry();
+            app.Use(async (context, next) =>
+            {
+                await next();
+
+                if (context.Response.StatusCode == 404
+                    && !Path.HasExtension(context.Request.Path.Value))
+                {
+                    context.Request.Path = "/index.html";
+                    await next();
+                }
+            });
 
             app.UseStaticFiles();
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=ShoppingListClient}/{action=Index}/{id?}");
-            });
+            app.UseMvc();
         }
     }
 }

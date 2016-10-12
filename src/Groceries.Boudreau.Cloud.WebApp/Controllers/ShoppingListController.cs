@@ -42,15 +42,17 @@
 
         // POST api/values
         [HttpPost]
-        public async Task Post([FromBody]ShoppingList value)
+        public async Task<int> Post([FromBody]ShoppingList value)
         {
             shoppingListContext.ShoppingLists.Add(value);
             await shoppingListContext.SaveChangesAsync();
+
+            return value.Id;
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public async Task Put(int id, [FromBody]ShoppingList value)
+        public async Task<int> Put(int id, [FromBody]ShoppingList value)
         {
             var list = await shoppingListContext.ShoppingLists
                 .Include(x => x.Items)
@@ -60,6 +62,8 @@
             list.Items = value?.Items ?? list.Items;
 
             await shoppingListContext.SaveChangesAsync();
+
+            return list.Id;
         }
 
         // DELETE api/values/5
