@@ -89,31 +89,20 @@ namespace Groceries.Boudreau.Cloud
 
 
             //app.UseApplicationInsightsExceptionTelemetry();
-            //app.Use(async (context, next) =>
-            //{
-            //    await next();
-
-            //    if (context.Response.StatusCode == 404
-            //        && !Path.HasExtension(context.Request.Path.Value))
-            //    {
-            //        context.Request.Path = "/index.html";
-            //        await next();
-            //    }
-            //});
-
-            app.UseStaticFiles();            
-
-            app.UseMvc(routes =>
+            app.Use(async (context, next) =>
             {
-            //    routes.MapRoute(
-            //        name: "default",
-            //        template: "{controller=ShoppingListClient}/{action=Index}/{id?}");
+                await next();
 
-                routes.MapRoute("spa-fallback",
-                                "{*anything}",
-                                new { controller = "Home", action = "Index" });
+                if (context.Response.StatusCode == 404
+                    && !Path.HasExtension(context.Request.Path.Value))
+                {
+                    context.Request.Path = "/index.html";
+                    await next();
+                }
             });
 
+            app.UseStaticFiles();
+            app.UseMvc();
         }
     }
 }
