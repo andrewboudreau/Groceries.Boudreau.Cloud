@@ -43,7 +43,6 @@ gulp.task("clean:css", function (cb) {
 
 gulp.task("clean", ["clean:js", "clean:css"]);
 
-
 gulp.task('restore:core-js', function () {
     gulp.src([
         'node_modules/core-js/client/*.js'
