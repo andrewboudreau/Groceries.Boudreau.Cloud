@@ -1,43 +1,90 @@
-﻿import { Component } from '@angular/core';
-
-
-const SHOPPINGLISTS: ShoppingList[] = [
-    { id: 11, name: 'Test Shopping List One' },
-    { id: 12, name: 'Test List 2' }
-];
-
+﻿import { Component, OnInit } from '@angular/core';
+import { ShoppingList } from './shoppinglist';
+import { ShoppingListDetailComponent } from './shoppinglist-detail.component';
+import { ShoppingListService } from './shoppinglist.service';
 
 @Component({
     selector: 'my-app',
     template: `
-    <h2>My Shopping Lists</h2>
-    <ul class="lists">
-        <li *ngFor="let list of shoppingLists" (click)="onSelect(list)">
+    <h2>My Lists</h2>
+    <ul class="heroes">
+        <li *ngFor="let list of shoppingLists" 
+            (click)="onSelect(list)" 
+            [class.selected]="list === selectedShoppingList">
             <span class="badge">{{list.id}}</span> {{list.name}}
         </li>
     </ul>
-    <div *ngIf="selectedShoppingList">
-      <h2>{{selectedShoppingList.name}} details!</h2>
-      <div><label>id: </label>{{selectedShoppingList.id}}</div>
-      <div>
-        <label>name: </label>
-        <input [(ngModel)]="selectedShoppingList.name" placeholder="name"/>
-      </div>
-    </div>
-  `
+    <shoppinglist-detail [shoppingList]="selectedShoppingList"></shoppinglist-detail>
+  `,
+    styles: [`
+  .selected {
+    background-color: #CFD8DC !important;
+    color: white;
+  }
+  .heroes {
+    margin: 0 0 2em 0;
+    list-style-type: none;
+    padding: 0;
+    width: 15em;
+  }
+  .heroes li {
+    cursor: pointer;
+    position: relative;
+    left: 0;
+    background-color: #EEE;
+    margin: .5em;
+    padding: .3em 0;
+    height: 1.6em;
+    border-radius: 4px;
+  }
+  .heroes li.selected:hover {
+    background-color: #BBD8DC !important;
+    color: white;
+  }
+  .heroes li:hover {
+    color: #607D8B;
+    background-color: #DDD;
+    left: .1em;
+  }
+  .heroes .text {
+    position: relative;
+    top: -3px;
+  }
+  .heroes .badge {
+    display: inline-block;
+    font-size: small;
+    color: white;
+    padding: 0.8em 0.7em 0 0.7em;
+    background-color: #607D8B;
+    line-height: 1em;
+    position: relative;
+    left: -1px;
+    top: -4px;
+    height: 1.8em;
+    margin-right: .8em;
+    border-radius: 4px 0 0 4px;
+  }
+`],
+    providers: [ShoppingListService]
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
     title = 'Groceries Lists';
-    shoppingLists = SHOPPINGLISTS;
+    shoppingLists: ShoppingList[];
     selectedShoppingList: ShoppingList;
+    
+    constructor(private shoppingListService: ShoppingListService) { }
+    
+    getShoppingLists(): void {
+        this.shoppingListService.getShoppingLists()
+            .then(lists => this.shoppingLists = lists);
+    };
+
+    ngOnInit(): void {
+        this.getShoppingLists();
+    };
+    
     onSelect(shoppinglist: ShoppingList): void {
         this.selectedShoppingList = shoppinglist;
     }
-
-}
-
-export class ShoppingList {
-    id: number;
-    name: string;
 }
